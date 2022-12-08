@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ панель</title>
+</head>
+<body>
+<h3>Личный кабинет администратора</h3>
+<form th:action="@{/logout}" th:method="post">
+    <button type="submit">Выйти из личного кабинета</button>
+</form>
+<a href="/admin/product/add">Добавить товар</a>
+<h3>Каталог товаров: </h3>
+<div th:each="product : ${products}">
+    <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
+    <p th:text="'Наименование: ' + ${product.getDescription()}"></p>
+    <p th:text="'Наименование: ' + ${product.getPrice()}"></p>
+    <p th:text="'Наименование: ' + ${product.getWarehouse()}"></p>
+    <p th:text="'Наименование: ' + ${product.getSeller()}"></p>
+    <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
+    <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
+</div>
+<hr>
+</body>
+</html>
