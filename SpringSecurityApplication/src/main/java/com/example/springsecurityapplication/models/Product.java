@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -32,6 +35,16 @@ public class Product {
     @Column(name = "seller", nullable = false)
     @NotEmpty(message = "Продавец товара не может быть пустым")
     private String seller;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    private List<Image> imageList = new ArrayList<>();
+
+    private LocalDateTime dateTimeOfCreated;
+
+    @PrePersist
+    private void init() {
+        dateTimeOfCreated = LocalDateTime.now();
+    }
 
     public Product() {
     }
@@ -90,5 +103,21 @@ public class Product {
 
     public void setSeller(String seller) {
         this.seller = seller;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
+    }
+
+    public LocalDateTime getDateTimeOfCreated() {
+        return dateTimeOfCreated;
+    }
+
+    public void setDateTimeOfCreated(LocalDateTime dateTimeOfCreated) {
+        this.dateTimeOfCreated = dateTimeOfCreated;
     }
 }

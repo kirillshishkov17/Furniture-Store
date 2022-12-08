@@ -13,10 +13,10 @@
 <h3>Каталог товаров: </h3>
 <div th:each="product : ${products}">
     <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
-    <p th:text="'Наименование: ' + ${product.getDescription()}"></p>
-    <p th:text="'Наименование: ' + ${product.getPrice()}"></p>
-    <p th:text="'Наименование: ' + ${product.getWarehouse()}"></p>
-    <p th:text="'Наименование: ' + ${product.getSeller()}"></p>
+    <p th:text="'Описание: ' + ${product.getDescription()}"></p>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
+    <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
     <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
     <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
 </div>
