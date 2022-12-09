@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Админ панель</title>
@@ -12,6 +12,7 @@
 <a href="/admin/product/add">Добавить товар</a>
 <h3>Каталог товаров: </h3>
 <div th:each="product : ${products}">
+    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" alt="File not found" width="300px">
     <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
     <p th:text="'Описание: ' + ${product.getDescription()}"></p>
     <p th:text="'Цена: ' + ${product.getPrice()}"></p>

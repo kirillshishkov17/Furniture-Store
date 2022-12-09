@@ -10,5 +10,9 @@
     <p th:text="'Цена: ' + ${product.getPrice()}"></p>
     <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
     <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+
+    <div th:each="img : ${product.getImageList()}">
+        <img th:src="'/img/' + ${img.getFileName()}" alt="File not found" width="300px">
+    </div>
 </body>
 </html>
