@@ -39,6 +39,9 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> imageList = new ArrayList<>();
 
+    @ManyToOne(optional = false)
+    private Category category;
+
     private LocalDateTime dateTimeOfCreated;
 
     @PrePersist
