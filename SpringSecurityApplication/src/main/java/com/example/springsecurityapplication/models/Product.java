@@ -42,6 +42,13 @@ public class Product {
     @ManyToOne(optional = false)
     private Category category;
 
+    @ManyToMany
+    @JoinTable(name = "product_cart", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
+    private List<Person> personList;
+
+    @OneToMany(mappedBy = "product")
+    private List<Order> orderList;
+
     private LocalDateTime dateTimeOfCreated;
 
     @PrePersist
@@ -127,5 +134,13 @@ public class Product {
 
     public void setDateTimeOfCreated(LocalDateTime dateTimeOfCreated) {
         this.dateTimeOfCreated = dateTimeOfCreated;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
