@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактирование заказа</title>
+    <link th:href="@{/css/editOrder.css}" rel="stylesheet" />
 </head>
 <body>
 
-<h3>Редактирование заказа: </h3>
-<p th:text="${'Номер заказа: ' + editOrder.getNumber()}"></p>
-<p th:text="${'Заказчик: ' + editOrder.getPerson().getLogin()}"></p>
-<p th:text="${'Статус заказа: ' + editOrder.getStatus().getName()}"></p>
+<div>
+    <h3>Редактирование заказа: </h3>
+    <p th:text="${'Номер заказа: ' + editOrder.getNumber()}"></p>
+    <p th:text="${'Заказчик: ' + editOrder.getPerson().getLogin()}"></p>
+    <p th:text="${'Статус заказа: ' + editOrder.getStatus().getName()}"></p>
 
-<form th:method="POST" th:action="@{/admin/order/edit/{id}(id=${editOrder.getId()})}" th:object="${editOrder}">
+    <form th:method="POST" th:action="@{/admin/order/edit/{id}(id=${editOrder.getId()})}" th:object="${editOrder}">
 
-    <label for="status">Изменить статус заказа: </label>
-    <select name="status" id="status" th:field="*{status}">
-        <div th:each="status : ${statusList}">
-            <option th:text="${status.getName()}" th:value="${status.getId()}"></option>
-        </div>
-    </select>
+        <label for="status">Изменить статус заказа: </label>
+        <select name="status" id="status" th:field="*{status}">
+            <div th:each="status : ${statusList}">
+                <option th:text="${status.getName()}" th:value="${status.getId()}"></option>
+            </div>
+        </select>
 
-    <input type="hidden" th:field="*{person}" th:value="${editOrder.getPerson()}">
-    <input type="hidden" th:field="*{product}" th:value="${editOrder.getProduct()}">
-    <input type="hidden" th:field="*{count}" th:value="${editOrder.getCount()}">
-    <input type="hidden" th:field="*{price}" th:value="${editOrder.getPrice()}">
-    <input type="hidden" th:field="*{dateTime}" th:value="${editOrder.getDateTime()}">
-    <input type="hidden" th:field="*{number}" th:value="${editOrder.getNumber()}">
-    <input type="submit" value="Изменить">
-</form>
-
+        <input type="hidden" th:field="*{person}" th:value="${editOrder.getPerson()}">
+        <input type="hidden" th:field="*{product}" th:value="${editOrder.getProduct()}">
+        <input type="hidden" th:field="*{count}" th:value="${editOrder.getCount()}">
+        <input type="hidden" th:field="*{price}" th:value="${editOrder.getPrice()}">
+        <input type="hidden" th:field="*{dateTime}" th:value="${editOrder.getDateTime()}">
+        <input type="hidden" th:field="*{number}" th:value="${editOrder.getNumber()}">
+        <input type="submit" value="Изменить">
+    </form>
+</div>
 </body>
 </html>
