@@ -1,7 +1,5 @@
 package com.example.springsecurityapplication.models;
 
-import com.example.springsecurityapplication.enums.Status;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,6 +19,7 @@ public class Order {
 
     private LocalDateTime dateTime;
 
+    @ManyToOne(optional = false)
     private Status status;
 
     @ManyToOne(optional = false)

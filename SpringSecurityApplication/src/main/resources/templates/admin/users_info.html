@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователях</title>
+</head>
+<body>
+<h3>Информация о пользователях</h3>
+
+<div th:each="user : ${users}">
+    <hr>
+    <p th:text="'ID: ' + ${user.getId()}"></p>
+    <p th:text="'Login: ' + ${user.getLogin()}"></p>
+    <p th:text="'Role: ' + ${user.getRole()}"></p>
+    <a th:href="@{/admin/user/info/change/{id}(id=${user.getId()})}">Изменить роль пользователя</a>
+    <hr>
+</div>
+
+</body>
+</html>

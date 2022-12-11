@@ -1,11 +1,11 @@
 package com.example.springsecurityapplication.controllers;
 
-import com.example.springsecurityapplication.enums.Status;
 import com.example.springsecurityapplication.models.Cart;
 import com.example.springsecurityapplication.models.Order;
 import com.example.springsecurityapplication.models.Product;
 import com.example.springsecurityapplication.repositories.CartRepository;
 import com.example.springsecurityapplication.repositories.OrderRepository;
+import com.example.springsecurityapplication.repositories.StatusRepository;
 import com.example.springsecurityapplication.security.PersonDetails;
 import com.example.springsecurityapplication.services.ProductService;
 import org.springframework.security.core.Authentication;
@@ -22,13 +22,16 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
+    private final StatusRepository statusRepository;
+
     private final OrderRepository orderRepository;
 
     private final CartRepository cartRepository;
 
     private final ProductService productService;
 
-    public UserController(OrderRepository orderRepository, CartRepository cartRepository, ProductService productService) {
+    public UserController(StatusRepository statusRepository, OrderRepository orderRepository, CartRepository cartRepository, ProductService productService) {
+        this.statusRepository = statusRepository;
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.productService = productService;
@@ -111,7 +114,7 @@ public class UserController {
         String uuid = UUID.randomUUID().toString();
 
         for (Product product : productList) {
-            Order newOrder = new Order(uuid, 1, product.getPrice(), Status.Офромлен, product, personDetails.getPerson());
+            Order newOrder = new Order(uuid, 1, product.getPrice(), statusRepository.findById(2), product, personDetails.getPerson());
             orderRepository.save(newOrder);
             cartRepository.deleteCartById(product.getId(), id_person);
         }

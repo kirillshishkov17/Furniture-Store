@@ -6,9 +6,15 @@
 </head>
 <body>
 <h3>Личный кабинет администратора</h3>
+
 <form th:action="@{/logout}" th:method="post">
     <button type="submit">Выйти из личного кабинета</button>
 </form>
+
+<a href="/admin/user/info">Посмотреть информацию о пользователях</a>
+<br>
+<a href="/admin/order/info">Посмотреть информацию о заказах</a>
+<br>
 <a href="/admin/product/add">Добавить товар</a>
 <h3>Каталог товаров: </h3>
 <div th:each="product : ${products}">

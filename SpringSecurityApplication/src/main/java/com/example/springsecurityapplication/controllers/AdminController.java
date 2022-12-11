@@ -1,9 +1,12 @@
 package com.example.springsecurityapplication.controllers;
 
-import com.example.springsecurityapplication.models.Image;
-import com.example.springsecurityapplication.models.Product;
+import com.example.springsecurityapplication.models.*;
 import com.example.springsecurityapplication.repositories.CategoryRepository;
+import com.example.springsecurityapplication.repositories.OrderRepository;
+import com.example.springsecurityapplication.repositories.PersonRepository;
+import com.example.springsecurityapplication.repositories.StatusRepository;
 import com.example.springsecurityapplication.security.PersonDetails;
+import com.example.springsecurityapplication.services.PersonService;
 import com.example.springsecurityapplication.services.ProductService;
 import com.example.springsecurityapplication.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -27,16 +32,28 @@ public class AdminController {
     @Value("${upload.path}")
     private String uploadPath;
 
+    private final PersonService personService;
+
     private final ProductValidator productValidator;
 
     private final ProductService productService;
 
     private final CategoryRepository categoryRepository;
+    private final PersonRepository personRepository;
+    private final OrderRepository orderRepository;
+    private final StatusRepository statusRepository;
 
-    public AdminController(ProductValidator productValidator, ProductService productService, CategoryRepository categoryRepository) {
+    public AdminController(PersonService personService, ProductValidator productValidator, ProductService productService, CategoryRepository categoryRepository,
+                           PersonRepository personRepository,
+                           OrderRepository orderRepository,
+                           StatusRepository statusRepository) {
+        this.personService = personService;
         this.productValidator = productValidator;
         this.productService = productService;
         this.categoryRepository = categoryRepository;
+        this.personRepository = personRepository;
+        this.orderRepository = orderRepository;
+        this.statusRepository = statusRepository;
     }
 
     // Метод по отображению главной страницы администратора с выводом товаров
@@ -193,5 +210,67 @@ public class AdminController {
     public String editProduct(@ModelAttribute("editProduct") Product product, @PathVariable("id") int id) {
         productService.updateProduct(id, product);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/user/info")
+    public String getUserInfo(Model model) {
+        model.addAttribute("users", personService.getAllPersons());
+        List<Person> test =  personService.getAllPersons();
+        System.out.println(test);
+        return "admin/users_info";
+    }
+
+    @GetMapping("user/info/change/{id}")
+    public String changePersonRole(@PathVariable("id") int id) {
+        Person person = personService.getPersonById(id);
+
+        if (person.getRole().equals("ROLE_USER")) {
+            person.setRole("ROLE_ADMIN");
+        } else {
+            person.setRole("ROLE_USER");
+        }
+        person.setId(id);
+        personRepository.save(person);
+        return "redirect:/admin/user/info";
+    }
+
+    // Посмотреть информацию о заказах
+    @GetMapping("/order/info")
+    public String getOrdersInfo(Model model) {
+        // Переменная в модели для поиска
+        String search = "";
+        model.addAttribute("search", search);
+
+        model.addAttribute("orders", orderRepository.findAll());
+        return "admin/orders";
+    }
+
+    // Возвращает форму редактирования заказа
+    @GetMapping("/order/edit/{id}")
+    public String editOrderInfo(Model model, @PathVariable("id") int id) {
+        model.addAttribute("editOrder", orderRepository.findById(id).orElse(null));
+        List<Status> statusList = statusRepository.findAll();
+        model.addAttribute("statusList", statusList);
+        return "admin/editOrder";
+    }
+
+    // Получает данные с формы и редактирует заказ
+    @PostMapping("/order/edit/{id}")
+    public String editOrderInfo(@PathVariable int id, @ModelAttribute("editOrder") Order editOrder) {
+        orderRepository.save(editOrder);
+        return "redirect:/admin/order/info";
+    }
+
+    // Ищет заказы по последним 4 символам номера заказа
+    @GetMapping("/order/search")
+    public String searchOrder(@RequestParam("search") String search, Model model) {
+        // Если параметра нет, то будет вводиться "!" т.к. он не используется в номере закзаза
+        // В таком случае поиск не выдаст никаких заказов, если поиск пустой
+        if (search == "") {
+            search = "!пустой поиск";
+        }
+        List<Order> orderList = orderRepository.findByNumberContainingLastFourSymbols(search);
+        model.addAttribute("searchOrder", orderList);
+        return "admin/searchOrder";
     }
 }

@@ -18,7 +18,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    // Позволяет вернуть всех пользователей
+    // Позволяет вернуть все товары
     public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
