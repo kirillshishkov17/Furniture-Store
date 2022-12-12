@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Заказы</title>
+    <link rel="stylesheet" th:href="@{/css/orders.css}">
 </head>
 <body>
 <h3>Заказы</h3>
-<form th:action="@{/admin/order/search}" th:method="GET">
-    <label for="search">Поиск по последним четырём символам: </label>
-    <input type="search" maxlength="4" name="search" id="search" th:value="*{search}">
-    <input type="submit" value="Поиск">
-</form>
 
-<div th:each="order : ${orders}">
-    <h3 th:text="'Заказ № ' + ${order.getNumber()}"></h3>
-    <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" alt="File not found" width="300px">
-    <br>
-    <br>
-    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
-    <p th:text="'Количество: ' + ${order.getCount()}"></p>
-    <p th:text="'Цена: ' + ${order.getPrice()}"></p>
-    <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
-    <p th:text="'Заказчик: ' + ${order.getPerson().getLogin()}"></p>
-    <p th:text="'Статус: ' + ${order.getStatus().getName()}"></p>
-    <a th:href="@{/admin/order/edit/{id}(id=${order.getId()})}">Редактировать</a>
-    <hr>
+<div class="container">
+    <form th:action="@{/admin/order/search}" th:method="GET">
+        <label for="search">Поиск по последним четырём символам: </label>
+        <input type="search" maxlength="4" name="search" id="search" th:value="*{search}">
+        <input type="submit" value="Поиск">
+    </form>
+
+    <div class="order_container">
+        <div th:each="order : ${orders}" class="order">
+            <h3 th:text="'Заказ № ' + ${order.getNumber()}"></h3>
+            <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" alt="File not found" width="500px">
+
+            <p th:text="'Номер заказа: ' + ${order.getNumber()}"></p>
+            <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
+            <p th:text="'Количество: ' + ${order.getCount()}"></p>
+            <p th:text="'Цена: ' + ${order.getPrice()} + ' ₽'"></p>
+            <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
+            <p th:text="'Заказчик: ' + ${order.getPerson().getLogin()}"></p>
+            <p th:text="'Статус: ' + ${order.getStatus().getName()}"></p>
+            <a th:href="@{/admin/order/edit/{id}(id=${order.getId()})}" class="edit">Редактировать</a>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -94,6 +94,7 @@ public class MainController {
         model.addAttribute("value_price_ot", ot);
         model.addAttribute("value_price_do", Do);
         model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("showSearch", true);
         return "/product/product";
     }
 }

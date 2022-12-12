@@ -1,0 +1,125 @@
+body {
+    background-color: #2d2d2d;
+    font-family: Arial;
+}
+
+/*Основной раздел "Доступные товары"*/
+
+h3 {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    justify-items: center;
+}
+
+.product {
+    background-color: white;
+    display: grid;
+    padding: 50px 20px 20px;
+    margin: 20px;
+    border: 1px solid black;
+    font-size: 24px;
+    border-radius: 20px;
+}
+
+.product:hover
+{
+	background-color: darkorange;
+	transform: scale(1.05);
+	transition: 1s;
+}
+
+.product img {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    border-radius: 20px;
+}
+
+.product a {
+    text-decoration: none;
+    color: black;
+}
+
+/*Раздел "Поиск товаров с помощью фильтрации"*/
+
+.search {
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    font-size: 20px;
+    border-radius: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+input[type="search"] {
+    width: 228px;
+}
+
+#search1 {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #2d2d2d;
+    /* max-height: 170px; */
+    text-align: justify;
+    border-radius: 15px;
+}
+
+#search2 {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #2d2d2d;
+    /* max-height: 170px; */
+    text-align: justify;
+    border-radius: 15px;
+}
+
+#search3 {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #2d2d2d;
+    /* max-height: 170px; */
+    text-align: justify;
+    border-radius: 15px;
+}
+
+input[type="submit"] {
+    margin-left: auto;
+    margin-right: auto;
+    width: 93%;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #2d2d2d;
+}
+
+input[type="submit"]:hover {
+    background-color: darkorange;
+    border: none;
+    color: white;
+}
+
+/*Раздел "Личный кабинет"*/
+
+.personal {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    text-align: center;
+
+    background-color: white;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.personal form{
+    grid-row-start: 2;
+}

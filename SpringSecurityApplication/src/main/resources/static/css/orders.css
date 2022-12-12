@@ -1,0 +1,64 @@
+body {
+    background-color: #2d2d2d;
+    font-family: Arial;
+}
+
+h3 {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+form {
+    margin: 30px;
+}
+
+.container {
+    display: grid;
+
+    background-color: white;
+    margin: 20px;
+    padding: 50px;
+    border-radius: 20px;
+    font-size: 24px;
+}
+
+input[type="search"] {
+    width: 200px;
+    height: 24px;
+}
+
+input[type="submit"] {
+    width: 100px;
+    height: 24px;
+    font-size: 14px;
+}
+
+.order_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.order {
+    border: 1px solid black;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.edit {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.edit:hover {
+    background-color: darkorange;
+    color: white;
+}
