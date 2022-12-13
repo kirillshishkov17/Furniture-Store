@@ -1,0 +1,98 @@
+body {
+    background-color: #2d2d2d;
+    font-family: Arial;
+}
+
+h3 {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+}
+
+/*Блок с функицями администратора*/
+
+.personalAdminActions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    font-size: 20px;
+
+    align-items: center;
+}
+
+.personalAdminActions a {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 20px;
+
+    text-decoration: none;
+    color: black;
+}
+
+.personalAdminActions a:hover {
+    background-color: darkorange;
+	transform: scale(1.05);
+	transition: 1s;
+}
+
+.personalAdminActions button {
+    font-size: 20px;
+    padding: 8px;
+}
+
+/*Основная часть*/
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    justify-items: center;
+}
+
+.product {
+    background-color: white;
+    display: grid;
+    padding: 20px;
+    padding-top: 50px;
+    margin: 20px;
+    border: 1px solid black;
+    font-size: 24px;
+    border-radius: 20px;
+}
+
+.product:hover
+{
+	background-color: darkorange;
+	transform: scale(1.05);
+	transition: 1s;
+}
+
+.product img {
+    width: 90%;
+
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+}
+
+.product a {
+    padding: 10px;
+}
+
+.action {
+    justify-self: center;
+    width: 600px;
+    height: 40px;
+    border: 1px solid black;
+    margin: 5px;
+    background-color: #2d2d2d;
+    color: white;
+    cursor: pointer;
+
+    text-decoration: none;
+    align-self: flex-end;
+}

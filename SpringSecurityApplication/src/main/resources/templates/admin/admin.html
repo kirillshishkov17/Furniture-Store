@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Админ панель</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 <h3>Личный кабинет администратора</h3>
 
-<form th:action="@{/logout}" th:method="post">
-    <button type="submit">Выйти из личного кабинета</button>
-</form>
+<div class="personalAdminActions">
+    <a href="/admin/user/info">Информация о пользователях</a>
+    <a href="/admin/order/info">Информация о заказах</a>
+    <a href="/admin/product/add">Добавить товар</a>
 
-<a href="/admin/user/info">Посмотреть информацию о пользователях</a>
-<br>
-<a href="/admin/order/info">Посмотреть информацию о заказах</a>
-<br>
-<a href="/admin/product/add">Добавить товар</a>
+    <form th:action="@{/logout}" th:method="post">
+        <button type="submit">Выйти из личного кабинета</button>
+    </form>
+</div>
+
+
 <h3>Каталог товаров: </h3>
-<div th:each="product : ${products}">
-    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" alt="File not found" width="300px">
-    <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
-    <p th:text="'Описание: ' + ${product.getDescription()}"></p>
-    <p th:text="'Цена: ' + ${product.getPrice()} + ' ₽'"></p>
-    <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
-    <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
-    <p th:text="'Категория товара: ' + ${product.getCategory().getName()}"></p>
-    <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
-    <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
+
+<div class="container">
+    <div th:each="product : ${products}" class="product">
+        <img th:src="'/img/' + ${product.imageList[0].getFileName()}" alt="File not found" width="300px">
+        <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
+        <p th:text="'Описание: ' + ${product.getDescription()}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()} + ' ₽'"></p>
+        <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
+        <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+        <p th:text="'Категория товара: ' + ${product.getCategory().getName()}"></p>
+        <a class="action" th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
+        <a class="action" th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
+    </div>
 </div>
 </body>
 </html>
