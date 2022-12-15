@@ -5,9 +5,9 @@
     <title>Поиск заказов</title>
 </head>
 <body>
-<h3>Найденные заказы:</h3>
+<h3 style="margin: 20px;">Найденные заказы:</h3>
 
-<div th:each="order : ${searchOrder}">
+<div th:each="order : ${searchOrder}" style="border: 1px solid black; padding: 20px; margin: 20px; width: 50%">
   <h3 th:text="'Заказ № ' + ${order.getNumber()}"></h3>
   <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" alt="File not found" width="300px">
   <br>
